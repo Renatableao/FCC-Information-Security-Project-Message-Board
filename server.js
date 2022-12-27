@@ -7,8 +7,16 @@ const cors        = require('cors');
 const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
+const helmet = require("helmet")
+require('./connection');
 
 const app = express();
+
+app.use(helmet.frameguard());
+app.use(helmet.dnsPrefetchControl());
+app.use(helmet({referrerPolicy: { policy: "same-origin"},}));
+
+
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
